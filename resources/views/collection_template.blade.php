@@ -17,25 +17,25 @@
                     </button>
 
                   <!-- Comment DIV -->
-<div class="collapse card position-fixed comment_card" id="commentPage">
-    <div class="card-body">
-        <div>
-            <button class="comment_close_button me-2" onclick="closeComment()" id="closeComment">
-                <i class="bi bi-x-lg"> </i>
-            </button>
-        </div>
-        <h5>GET</h5>
-        <h6>Comments</h6>
-        <div style="height: 490px"></div>
-        <div>
-            <form action="{{ route('workspace.commentCollection', ['workspace' => $selectedWorkspace->id, 'collection' => $selectedCollection->id]) }}" enctype="multipart/form-data" method="POST">
-                @csrf
-                <input style="width: 265px" type="text" name="commentDetail" placeholder="Add a new comment">
-                <button class="btn btn-primary btn-sm mt-2 me-3" style="right: 0; position: fixed;" type="submit">Comment</button>
-            </form>
-        </div>
-    </div>
-</div>
+                    <div class="collapse card position-fixed comment_card" id="commentPage">
+                        <div class="card-body">
+                            <div>
+                                <button class="comment_close_button me-2" onclick="closeComment()" id="closeComment">
+                                    <i class="bi bi-x-lg"> </i>
+                                </button>
+                            </div>
+                            <h5>GET</h5>
+                            <h6>Comments</h6>
+                            <div style="height: 490px"></div>
+                            <div>
+                                <form action="{{ route('workspace.commentCollection', ['workspace' => $selectedWorkspace->id, 'collection' => $selectedCollection->id]) }}" enctype="multipart/form-data" method="POST">
+                                    @csrf
+                                    <input style="width: 265px" type="text" name="commentDetail" placeholder="Add a new comment">
+                                    <button class="btn btn-primary btn-sm mt-2 me-3" style="right: 0; position: fixed;" type="submit">Comment</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <div class="d-flex align-items-center justify-content-between" style="width: 110px; height: 30px;">
