@@ -1,9 +1,7 @@
-@extends('collection')
-
-@section('collection_template')
+<?php $__env->startSection('collection_template'); ?>
     <div class="container-fluid p-3">
         <div class="col d-flex flex-row justify-content-between align-items-center p-0 mb-2">
-            <h5>{{ $selectedCollection->name }}</h5>
+            <h5><?php echo e($selectedCollection->name); ?></h5>
             <div class="d-flex justify-content-between">
                 <div style="display: flex; flex-direction: column; align-items: center;">
 
@@ -28,8 +26,8 @@
         <h6>Comments</h6>
         <div style="height: 490px"></div>
         <div>
-            <form action="{{ route('workspace.commentCollection', ['workspace' => $selectedWorkspace->id, 'collection' => $selectedCollection->id]) }}" enctype="multipart/form-data" method="POST">
-                @csrf
+            <form action="<?php echo e(route('workspace.commentCollection', ['workspace' => $selectedWorkspace->id, 'collection' => $selectedCollection->id])); ?>" enctype="multipart/form-data" method="POST">
+                <?php echo csrf_field(); ?>
                 <input style="width: 265px" type="text" name="commentDetail" placeholder="Add a new comment">
                 <button class="btn btn-primary btn-sm mt-2 me-3" style="right: 0; position: fixed;" type="submit">Comment</button>
             </form>
@@ -60,9 +58,9 @@
             </div>
         </div>
         <form
-            action="{{ route('importFile', ['workspace' => $selectedWorkspace->id, 'collection' => $selectedCollection->id]) }}"
+            action="<?php echo e(route('importFile', ['workspace' => $selectedWorkspace->id, 'collection' => $selectedCollection->id])); ?>"
             enctype="multipart/form-data" method="POST">
-            @csrf
+            <?php echo csrf_field(); ?>
             <div class="col d-flex">
                 <input class="form-control me-2" style="border: #F2F2F2 solid 2px; color:#808080;" type="file"
                     id="file" name="file">
@@ -76,15 +74,15 @@
 
     </div>
     <div class="container-fluid p-3">
-        @php
+        <?php
             $collection_tabs = session('collection_tabs', []);
-        @endphp
-        @foreach ($collection_tabs as $tabs)
-            @if ($tabs->id == $selectedCollection->id && $tabs->method != null)
-                @php
+        ?>
+        <?php $__currentLoopData = $collection_tabs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tabs): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php if($tabs->id == $selectedCollection->id && $tabs->method != null): ?>
+                <?php
                     $methods[] = $tabs->method;
-                @endphp
-                @foreach ($methods as $method)
+                ?>
+                <?php $__currentLoopData = $methods; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $method): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <!-- Method -->
                     <div class="table-form">
                         <table style="width: 100%">
@@ -113,13 +111,13 @@
                                     </td>
                                     <td class="col-2 " style="border-top: 2px solid #F2F2F2; border-radius:5px;">
                                         <input class="mt-1 custom-textfield" style="height: auto; width: 100%;"
-                                            type="text" name="" id="" placeholder="{{ $method->route }}">
+                                            type="text" name="" id="" placeholder="<?php echo e($method->route); ?>">
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    {{-- ปุ่ม pup --}}
+                    
                     <div class="mb-3">
                         <button class="btn p-0" style="background-color: white;" type="button" data-bs-toggle="collapse"
                             data-bs-target="#TestExample" aria-expanded="false" aria-controls="TestExample">
@@ -128,7 +126,7 @@
                         </button>
                         <div class="collapse" id="TestExample">
                             <div class="card card-body mt-3" style="border: none;">
-                                {{-- ตาราง Request Headers --}}
+                                
                                 <label class="mb-1" for="">Request Headers</label>
                                 <div class="table-form">
                                     <table style="width: 100%">
@@ -140,13 +138,14 @@
                                                 <td class="col-6 text-center">Description</td>
                                             </tr>
                                         </thead>
-                                        {{-- ข้อมูลของ Request Headers --}}
+                                        
                                         <tbody>
-                                            {{ $method->request_header[0] }}
-                                            @php
+                                            <?php echo e($method->request_header[0]); ?>
+
+                                            <?php
                                                 $request_header[] = $method->request_header;
-                                            @endphp
-                                            @foreach ($request_header as $item)
+                                            ?>
+                                            <?php $__currentLoopData = $request_header; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <tr>
                                                     <td class="col-1"
                                                         style="border-right: 2px solid #F2F2F2; border-top: 2px solid #F2F2F2;">
@@ -173,7 +172,7 @@
                                                             name="" id="">
                                                     </td>
                                                 </tr>
-                                            @endforeach
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -184,7 +183,7 @@
                                     </a>
                                 </div>
 
-                                {{-- ตาราง Request Parameters --}}
+                                
                                 <label class="mb-1" for="">Request Parameters</label>
                                 <div class="table-form">
                                     <table style="width: 100%">
@@ -198,7 +197,7 @@
                                                 <td class="col-3 text-center">Description</td>
                                             </tr>
                                         </thead>
-                                        {{-- ข้อมูลของ Request Parameters --}}
+                                        
                                         <tbody>
                                             <tr>
                                                 <td class="col-1"
@@ -260,7 +259,7 @@
                                     </a>
                                 </div>
 
-                                {{-- ตาราง Request Body --}}
+                                
                                 <label class="mb-1" for="">Request Body</label>
                                 <div class="table-form">
                                     <table style="width: 100%">
@@ -273,7 +272,7 @@
                                                 <td class="col-4 text-center">Description</td>
                                             </tr>
                                         </thead>
-                                        {{-- ข้อมูลของ Request Body --}}
+                                        
                                         <tbody>
                                             <tr>
                                                 <td class="col-1"
@@ -324,7 +323,7 @@
                                             style="background-color: #F2F2F2; color: #000000; border-radius: 5px;">add</span>
                                     </a>
                                 </div>
-                                {{-- ตาราง Response Body --}}
+                                
                                 <div class="d-flex justify-content-between align-items-center mt-2">
                                     <label class="mb-1" for="">Response Body</label>
                                     <div class="d-flex align-items-center p-0">
@@ -351,7 +350,7 @@
                                                 <td class="col-6 text-center">Description</td>
                                             </tr>
                                         </thead>
-                                        {{-- ข้อมูลของ Response Body --}}
+                                        
                                         <tbody>
 
                                             <tr>
@@ -399,9 +398,9 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
-            @endif
-        @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endif; ?>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
     <script>
         function showComment() {
@@ -414,4 +413,6 @@
             y.classList.toggle('show');
         }
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('collection', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\ClickNextImproveByMe\resources\views/collection_template.blade.php ENDPATH**/ ?>
